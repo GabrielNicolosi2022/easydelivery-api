@@ -1,0 +1,6 @@
+.vscode
+/node_modules
+
+.env.development
+
+Aplicación web para servicio de flete.*
