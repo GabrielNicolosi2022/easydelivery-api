@@ -1,4 +1,8 @@
 import { Router } from "express";
+import driversRouter from "./operators.routes.js";
+import vehiclesRouter from "./vehicles.routes.js";
+import customersRouter from "./customers.routes.js";
+import deliveriesRouter from "./deliveries.routes.js";
 
 const indexRouter = Router();
 

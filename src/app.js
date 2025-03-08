@@ -4,11 +4,12 @@ import __dirname from "./dirname";
 import config from "./config/config.js";
 import cors from "cors";
 import morgan from "morgan";
+import indexRouter from "./routes/index.routes.js";
 
 /* CONFIGURATIONS */
 const app = express();
 const PORT = config.server.port;
-const DB = config.db.cs;
+// const DB = config.db.cs;
 
 /* Express */
 app.use(json());
@@ -22,6 +23,7 @@ app.use(cors());
 app.use(morgan("dev"));
 
 /* Routes */
+app.use(indexRouter);
 
 /* Server */
 const server = app.listen(PORT, (err) => {
