@@ -1,14 +1,19 @@
 import { Router } from "express";
-import * as controllers from "../controller/prices.controller.js";
+import {
+  getPricesList,
+  createPricesList,
+} from "../controller/prices.controller.js";
 
 const pricesRouter = Router();
 
 // path: /v1/api/precios
 // Traer lista completa de precios (zonas + adicionales)
-pricesRouter.get("/", controllers.getPricesList);
+pricesRouter.get("/", getPricesList);
 
 // Traer precios por zona
-pricesRouter.get("/zonas", controllers.createPricesList);
+pricesRouter.get("/zonas", (req, res) => {
+  //TODO}
+});
 
 // Traer precios adicionales
 pricesRouter.get("/adicionales", (req, res) => {
@@ -16,9 +21,7 @@ pricesRouter.get("/adicionales", (req, res) => {
 });
 
 // Crear precios por zona
-pricesRouter.post("/zonas", (req, res) => {
-  //TODO}
-});
+pricesRouter.post("/zonas", createPricesList);
 
 // Modificar zona
 pricesRouter.patch("/zonas/:id", (req, res) => {
