@@ -32,6 +32,6 @@ config.db = {
   dbName: process.env.DB_NAME,
 };
 
-console.log("config.js: ", config);
+// console.log("config.js: ", config);
 
 export default config;
