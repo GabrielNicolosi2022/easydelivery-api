@@ -29,6 +29,15 @@ export const devLog = winston.createLogger({
         winston.format.simple()
       ),
     }),
+    // Probar funcionalidad
+    new winston.transports.File({
+      level: "error",
+      filename: "logs/errors.log",
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.simple()
+      ),
+    }),
   ],
 });
 
