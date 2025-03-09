@@ -2,22 +2,28 @@ import mongoose from "mongoose";
 
 const pricesListCollection = "PriceList";
 
-const pricesListSchema = mongoose.Schema({
-  priceZone: {
-    zone: {
-      type: String,
-      required: true,
-      Enum: ["alrededores", "caba", "sur", "norte", "oeste"],
-    },
-    cities: {
-      type: [String],
-      required: true,
-    },
-    price: {
-      type: Number,
-      required: true,
-    },
+const pricesZoneSchema = mongoose.Schema({
+  zone: {
+    type: String,
+    required: true,
+    Enum: ["alrededores", "caba", "sur", "norte", "oeste"],
   },
+  group: {
+    type: Number,
+    required: true,
+  },
+  cities: {
+    type: [String],
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+});
+
+const pricesListSchema = mongoose.Schema({
+  priceZone: pricesZoneSchema,
   lastUpdate: {
     type: Date,
     default: Date.now,
