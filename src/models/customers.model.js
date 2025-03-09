@@ -1,4 +1,3 @@
-import { defaultMaxListeners } from "connect-mongo";
 import mongoose from "mongoose";
 
 const customerCollection = "Customers";
