@@ -1,4 +1,4 @@
-import pricesModel from "../models/customers.model.js";
+import pricesModel from "../models/prices.model.js";
 import additionalPricesModel from "../models/additionalsPrices.model.js";
 
 /* Servicios para la lista de precios por zona */
@@ -6,8 +6,7 @@ const getAllPrices = async () => await pricesModel.find().lean();
 
 const getPriceById = async (id) => await pricesModel.findOne(id).lean();
 
-const createPrice = async (priceData) =>
-  await pricesModel.create(priceData).lean();
+const createPrice = async (priceData) => await pricesModel.create(priceData);
 
 const updatePrice = async (id, priceData) =>
   await pricesModel
@@ -15,6 +14,13 @@ const updatePrice = async (id, priceData) =>
     .exec();
 
 const deletePrice = async (id) => await pricesModel.deleteOne(id);
+
+// Servicios relacionados
+const findZoneWithGroup = async (zone, group) =>
+  await pricesModel.findOne({
+    "priceZone.zone": zone,
+    "priceZone.group": group,
+  });
 
 /* Servicios para los precios adicionales */
 const getAllAdditionalPrices = async () =>
@@ -45,4 +51,5 @@ export {
   createAdditionalPrice,
   updateAdditionalPrice,
   deleteAdditionalPrice,
+  findZoneWithGroup,
 };

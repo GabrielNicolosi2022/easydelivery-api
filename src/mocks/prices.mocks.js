@@ -2,6 +2,7 @@
 export const formatPriceZoneList = {
   priceZone: {
     zone: "caba",
+    group: 2,
     cities: ["Expresos"],
     price: 55000,
   },
@@ -11,21 +12,25 @@ export const formatPriceZoneList = {
 export const formatPriceMultiZoneList = {
   priceZone: {
     zone: "caba",
+    group: 1,
     cities: ["general"],
     price: 50000,
   },
   priceZone: {
     zone: "caba",
+    group: 2,
     cities: ["Expresos"],
     price: 55000,
   },
   priceZone: {
     zone: "alrededores",
+    group: 1,
     cities: ["Munro", "Florida", "Carapachay", "Olivos", "Vicente Lopez"],
     price: 50000,
   },
   priceZone: {
     zone: "sur",
+    group: 3,
     cities: ["Berazategui", "Florencio Varela", "Hudson"],
     price: 120000,
   },
