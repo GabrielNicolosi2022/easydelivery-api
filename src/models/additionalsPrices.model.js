@@ -3,12 +3,14 @@ import mongoose from "mongoose";
 const additionalPricesCollection = "AdditionalPrices";
 
 const additionalPricesSchema = mongoose.Schema({
-  description: {
-    type: String,
-    enum: ["escalera hasta 2mt", "escalera + 2mt"],
-  },
-  price: {
-    type: Number,
+  additional: {
+    description: {
+      type: String,
+      enum: ["escalera hasta 2mt", "escalera + 2mt"],
+    },
+    price: {
+      type: Number,
+    },
   },
   lastUpdate: {
     type: Date,

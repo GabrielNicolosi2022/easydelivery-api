@@ -4,3 +4,5 @@
 .env.development
 
 Aplicación web para servicio de flete.*
+*.xlsx
+*.html
