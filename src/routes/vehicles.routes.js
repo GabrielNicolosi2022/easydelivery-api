@@ -18,7 +18,7 @@ vehiclesRouter.patch("/:id", (req, res) => {
   //TODO}
 });
 
-vehiclesRouter.del("/:id", (req, res) => {
+vehiclesRouter.delete("/:id", (req, res) => {
   //TODO}
 });
 

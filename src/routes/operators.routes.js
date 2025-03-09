@@ -26,7 +26,7 @@ driversRouter.patch("/:id", (req, res) => {
   //TODO}
 });
 
-driversRouter.del("/:id", (req, res) => {
+driversRouter.delete("/:id", (req, res) => {
   //TODO}
 });
 

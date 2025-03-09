@@ -18,7 +18,7 @@ customersRouter.patch("/:id", (req, res) => {
   //TODO}
 });
 
-customersRouter.del("/:id", (req, res) => {
+customersRouter.delete("/:id", (req, res) => {
   //TODO}
 });
 

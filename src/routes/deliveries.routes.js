@@ -13,7 +13,7 @@ deliveriesRouter.patch("/:id", (req, res) => {
 });
 
 /* Eliminar entrega */
-deliveriesRouter.del("/:id", (req, res) => {
+deliveriesRouter.delete("/:id", (req, res) => {
   //TODO Tener en cuenta un middleware para que solo tenga acceso el admin o el customer creador
 });
 

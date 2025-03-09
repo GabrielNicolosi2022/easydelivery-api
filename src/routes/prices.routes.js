@@ -40,7 +40,7 @@ pricesRouter.patch("/adicionales/:id", (req, res) => {
   //TODO}
 });
 
-pricesRouter.del("/:id", (req, res) => {
+pricesRouter.delete("/:id", (req, res) => {
   //TODO}
 });
 
