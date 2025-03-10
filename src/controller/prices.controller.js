@@ -1,8 +1,6 @@
 import getLogger from "../utils/log.utils.js";
-import {
-  validateFields,
-  validateFormatData,
-} from "../helpers/pricesValidations.helpers.js";
+import { validateFormatData } from "../helpers/commonValidations.helpers.js";
+import { validatePriceFields } from "../helpers/pricesValidations.helpers.js";
 import * as pricesServices from "../services/prices.services.js";
 
 const log = getLogger();
@@ -70,7 +68,7 @@ const createPricesList = async (req, res) => {
         .json({ status: "Request error", message: validatedData });
     }
     // Validar campos obligatorios para la lista de precios antes de crearla
-    const validatedFields = validateFields(data);
+    const validatedFields = validatePriceFields(data);
     if (validatedFields) {
       log.error(validatedFields);
       return res
