@@ -4,7 +4,10 @@ const getAll = async () => await operatorModel.find().lean();
 
 const getById = async (id) => await operatorModel.findById(id).lean();
 
-const create = async () => await operatorModel.create().lean();
+const getByUsername = async (username) =>
+  await operatorModel.findOne({ username: username }).lean();
+
+const create = async (data) => await operatorModel.create(data);
 
 const update = async (id, data) =>
   await operatorModel
@@ -13,4 +16,4 @@ const update = async (id, data) =>
 
 const deleteOne = async (id) => await operatorModel.deleteOne(id);
 
-export { getAll, getById, create, update, deleteOne };
+export { getAll, getById, getByUsername, create, update, deleteOne };
