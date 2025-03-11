@@ -1,33 +1,34 @@
 import { Router } from "express";
+import {
+  createOperator,
+  getAllOperators,
+} from "../controller/operators.controller.js";
 
-const driversRouter = Router();
+const operatorsRouter = Router();
 
-driversRouter.get("/", (req, res) => {
-  //TODO}
-});
+// Obtener todos los operadores
+operatorsRouter.get("/", getAllOperators);
 
-driversRouter.get("/:id", (req, res) => {
+operatorsRouter.get("/:id", (req, res) => {
   //TODO
 });
 
-driversRouter.get("/choferes", (req, res) => {
+operatorsRouter.get("/choferes", (req, res) => {
   //TODO}
 });
 
-driversRouter.get("/choferes/:id", (req, res) => {
+operatorsRouter.get("/choferes/:id", (req, res) => {
+  //TODO}
+});
+// Crear nuevo operador
+operatorsRouter.post("/", createOperator); //TODO middleware: solo admin
+
+operatorsRouter.patch("/:id", (req, res) => {
   //TODO}
 });
 
-driversRouter.post("/", (req, res) => {
+operatorsRouter.delete("/:id", (req, res) => {
   //TODO}
 });
 
-driversRouter.patch("/:id", (req, res) => {
-  //TODO}
-});
-
-driversRouter.delete("/:id", (req, res) => {
-  //TODO}
-});
-
-export default driversRouter;
+export default operatorsRouter;

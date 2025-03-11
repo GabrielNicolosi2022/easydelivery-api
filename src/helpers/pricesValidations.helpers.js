@@ -1,5 +1,5 @@
 // Validar campos obligatorios para la lista de precios antes de crearla
-export const validatePricesFields = (data) => {
+export const validatePriceFields = (data) => {
   const { priceZone } = data;
   if (
     !priceZone ||
