@@ -11,7 +11,7 @@ const create = async (data) => await operatorModel.create(data);
 
 const update = async (id, data) =>
   await operatorModel
-    .findByIdAndUpdate({ _id: id }, { $set: { data } }, { new: true })
+    .findByIdAndUpdate({ _id: id }, { $set: data }, { new: true })
     .exec();
 
 const deleteOne = async (id) => await operatorModel.deleteOne(id);

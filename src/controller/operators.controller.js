@@ -11,14 +11,18 @@ import {
 } from "../services/operators.services.js";
 import { createHash } from "../utils/hash.utils.js";
 import getLogger from "../utils/log.utils.js";
+import { convertStringsToLowerCase } from "../utils/conversions.utils.js";
 
 const log = getLogger();
 
 // Crear nuevo operador
 const createOperator = async (req, res) => {
-  const data = req.body;
+  let data = req.body;
   log.debug("createOperator - data: ", data);
   try {
+    // Convertir todos los datos strings a minúsculas
+    data = convertStringsToLowerCase(data);
+
     // Validar que data sea un objeto y no sea enviado vacío
     const validatedFormatData = validateFormatData(data);
     // log.debug("createOperator - validatedFormatData: " + validatedFormatData);
@@ -62,7 +66,7 @@ const createOperator = async (req, res) => {
     log.fatal("Error al crear el nuevo operador", err, err.message);
     res.status(500).json({
       status: "error",
-      message: err.message,
+      message: "Internal Server Error",
     });
   }
 };
@@ -94,4 +98,128 @@ const getAllOperators = async (req, res) => {
   }
 };
 
-export { createOperator, getAllOperators };
+// Obtener un operador mediante su id
+const getOperatorById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const data = await getById(id);
+    if (!data) {
+      log.error("No se encontró el operador en la base de datos");
+      return res.status(404).json({
+        status: "error",
+        message: "No se encontró el operador en la base de datos",
+      });
+    }
+    // Dar formato a la respuesta del servicio
+    const formattedData = operatorDataFormatted(data);
+    res.status(200).json({
+      status: "succes",
+      message: "Operador encontrado",
+      payload: formattedData,
+    });
+  } catch (err) {
+    log.fatal("Error al obtener el operador", err);
+    res.status(500).json({ status: "error", messaje: "Internal Server Error" });
+  }
+};
+
+// Obtener un operador mediante su username
+//! Está funcionando pero no le encuento el sentido a la ruta...
+const getOperatorByUsername = async (req, res) => {
+  const { username } = req.body;
+  console.log("username: ", username);
+  try {
+    const data = await getByUsername(username);
+    console.log("data: ", data);
+    if (!data) {
+      log.error("No se encontró el operador en la base de datos");
+      return res.status(404).json({
+        status: "error",
+        message: "No se encontró el operador en la base de datos",
+      });
+    }
+    // Dar formato a la respuesta del servicio
+    const formattedData = operatorDataFormatted(data);
+    res.status(200).json({
+      status: "succes",
+      message: "Operador encontrado",
+      payload: formattedData,
+    });
+  } catch (err) {
+    log.fatal("Error al obtener el operador", err);
+    res.status(500).json({ status: "error", message: "Internal Server Error" });
+  }
+};
+
+// Actualizar datos de operador
+const updateOperator = async (req, res) => {
+  const { id } = req.params;
+  console.log("id: ", id);
+  let data = req.body;
+  console.log("data: ", data);
+  try {
+    // Convertir todos los datos strings a minúsculas
+    data = convertStringsToLowerCase(data);
+
+    // Validar que data sea un objeto y no sea enviado vacío
+    const validatedFormatData = validateFormatData(data);
+    // log.debug("updateOperator - validatedFormatData: " + validatedFormatData);
+    if (validatedFormatData) {
+      log.error(validatedFormatData);
+      return res
+        .status(400)
+        .json({ status: "error", mesage: validatedFormatData });
+    }
+    console.log("data: ", data);
+    const modifyOperator = await update(id, data);
+    console.log("modifyOperator: ", modifyOperator);
+    // Dar formato a la respuesta del servicio
+    const updatedOperator = operatorDataFormatted(modifyOperator);
+
+    res.status(200).json({
+      status: "success",
+      message: "Operator successfully updated",
+      payload: updatedOperator,
+    });
+  } catch (err) {
+    log.fatal("Error al modificar el operador", err, err.message);
+    res.status(500).json({
+      status: "error",
+      message: "Internal Server Error",
+    });
+  }
+};
+
+// Eliminar un operador
+const deleteOperator = async (req, res) => {
+  const { id } = req.body;
+  try {
+    const findOperator = getById(id);
+    if (!findOperator) {
+      log.error("Operator not found");
+      return res
+        .status(404)
+        .json({ status: "error", message: "Operator not found" });
+    }
+    const deletedOperator = deleteOne(id);
+
+    res
+      .status(200)
+      .json({ status: "success", message: "Operator succesfully deleted" });
+  } catch (err) {
+    log.fatal("Error intentando eliminar el operador", err, err.message);
+    res.status(500).json({
+      status: "error",
+      message: "Internal Server Error",
+    });
+  }
+};
+
+export {
+  createOperator,
+  getAllOperators,
+  getOperatorById,
+  getOperatorByUsername,
+  updateOperator,
+  deleteOperator,
+};
