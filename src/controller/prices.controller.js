@@ -2,6 +2,7 @@ import getLogger from "../utils/log.utils.js";
 import { validateFormatData } from "../helpers/commonValidations.helpers.js";
 import { validatePriceFields } from "../helpers/pricesValidations.helpers.js";
 import * as pricesServices from "../services/prices.services.js";
+import { convertStringsToLowerCase } from "../utils/conversions.utils.js";
 
 const log = getLogger();
 
@@ -55,10 +56,14 @@ const getPricesList = async (req, res) => {
 
 // Crear lista de precios
 // TODO enviar todos los datos Strings convertidos a minusculas '.toLowerCase()'
+
 const createPricesList = async (req, res) => {
-  const data = req.body;
+  let data = req.body;
   log.info("createPricesList - requestData: ", data);
   try {
+    // Convertir todoslos datos strings a minúsculas
+    data = convertStringsToLowerCase(data);
+    console.log("convertStringsToLowerCase - data: ", data);
     // Validar que data sea un objeto y no sea enviado vacío
     const validatedData = validateFormatData(data);
     if (validatedData) {
@@ -84,7 +89,7 @@ const createPricesList = async (req, res) => {
     if (existingZoneWithGroup) {
       // verificar si la ciudad existe en el grupo
       const existingCity = existingZoneWithGroup.priceZone.cities.includes(
-        data.priceZone.cities[0]
+        data.priceZone.cities
       );
       if (existingCity) {
         log.error("La ciudad ya existe en este grupo.");
@@ -94,8 +99,9 @@ const createPricesList = async (req, res) => {
         });
       } else {
         // agregar la/s ciudad/es al grupo
-        existingZoneWithGroup.priceZone.cities.push(data.priceZone.cities[0]);
+        existingZoneWithGroup.priceZone.cities.push(data.priceZone.cities);
         await existingZoneWithGroup.save();
+        console.log("existingZoneWithGroup: ", existingZoneWithGroup);
         return res.status(200).json({
           status: "success",
           message: "Ciudad agregada al grupo existente.",
