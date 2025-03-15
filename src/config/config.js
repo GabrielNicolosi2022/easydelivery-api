@@ -30,6 +30,7 @@ config.db = {
   dbUser: process.env.MONGO_USER,
   dbPass: process.env.MONGO_PASS,
   dbName: process.env.DB_NAME,
+  testing: process.env.MONGO_TEST,
 };
 
 // console.log("config.js: ", config);
